@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tinderapp-staging-95620-authRole",
+      "UnauthRoleArn": "arn:aws:iam::773728741508:role/amplify-tinderapp-staging-95620-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::773728741508:role/amplify-tinderapp-staging-95620-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-tinderapp-staging-95620-deployment",
+      "UnauthRoleName": "amplify-tinderapp-staging-95620-unauthRole",
+      "StackName": "amplify-tinderapp-staging-95620",
+      "StackId": "arn:aws:cloudformation:us-east-1:773728741508:stack/amplify-tinderapp-staging-95620/ef80ce60-d759-11ec-aac8-1241826b28fd",
+      "AmplifyAppId": "d29ngibk42yuj4"
+    },
+    "categories": {
+      "auth": {
+        "TinderApp": {}
+      }
+    }
+  }
+}

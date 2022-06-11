@@ -10,7 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@azure/core-asynciterator-polyfill": "^1.0.2",
+    "@react-native-async-storage/async-storage": "^1.17.6",
+    "@react-native-community/netinfo": "^9.0.0",
     "@react-native-firebase/app": "^14.9.1",
+    "@react-native-picker/picker": "^2.4.1",
+    "amazon-cognito-identity-js": "^5.2.9",
+    "aws-amplify": "^4.3.24",
+    "aws-amplify-react-native": "^6.0.4",
     "react": "17.0.2",
     "react-native": "0.68.1",
     "react-native-gesture-handler": "^2.4.0",

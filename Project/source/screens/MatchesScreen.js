@@ -1,20 +1,46 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet, SafeAreaView} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 import users from '../../assets/data/users';
+import { DataStore,Auth } from 'aws-amplify';
+import { Match,User } from '../../src/models';
 
 const MatchesScreen = () => {
+  const [matches, setMatches] = useState([]);
+  const [me, setMe] = useState(null);
+
+
+    const getCurrentUser = async () => {
+      const user = await Auth.currentAuthenticatedUser();
+      const dbUsers = await DataStore.query(User, u => u.sub === user.attributes.sub);
+      if (dbUsers.length < 0)
+        return;
+      setMe(dbUsers[0]);
+    };
+
+  useEffect(()=> getCurrentUser,[]);
+
+  useEffect(() => {
+    if(!me) return;
+    const fetchMatches = async() => {
+      const result = await DataStore.query(Match, m => 
+        m.or(m1 => m1.User1ID('eq',me.id).User2ID('eq',me.id)),);
+      setMatches(result);
+      console.log(result);
+    };
+    fetchMatches();
+  }, [me])
   return (
     <SafeAreaView style={styles.root}>
-      <View style = {styles.container}>
-        <Text style={{fontWeight: 'bold', fontSize: 24, color: '#F63A6E'}}>
+      <View style={styles.container}>
+        <Text style={{ fontWeight: 'bold', fontSize: 24, color: '#F63A6E' }}>
           New Matches
         </Text>
         <View style={styles.users}>
-        {users.map(user => (
-          <View style ={styles.user} key={user.id}> 
-            <Image source = {{uri: user.image}} style={styles.image}/>
-          </View>
-        ))}
+          {matches.map(match => (
+            <View style={styles.user} key={match.User1.id}>
+              <Image source={{ uri: match.User1.image }} style={styles.image} />
+            </View>
+          ))}
         </View>
       </View>
     </SafeAreaView>
@@ -28,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   container: {
-     //padding: 10,
+    //padding: 10,
 
   },
   users: {
